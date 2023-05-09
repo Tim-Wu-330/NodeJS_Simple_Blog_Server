@@ -17,6 +17,12 @@ dbConnect();
 
 // console.log(process.env)
 
+// Middleware
+app.use(express.json());
+//cors
+app.use(cors());
+//usage of middleware
+
 //routes
 //---
 //Home route
@@ -31,12 +37,6 @@ app.get("/", async (req, res) => {
     res.json(error);
   }
 });
-
-// Middleware
-app.use(express.json());
-//cors
-app.use(cors());
-//usage of middleware
 
 //Users route
 app.use("/api/users", userRoutes);
