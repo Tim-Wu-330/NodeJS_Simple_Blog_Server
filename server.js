@@ -9,6 +9,7 @@ const postRoutes = require("./route/posts/postRoute");
 const commentRoutes = require("./route/comments/commentRoute");
 const emailMsgRoutes = require("./route/emailMsg/emailMsgRoute");
 const categoryRoutes = require("./route/category/categoryRoute");
+const Post = require("./model/post/Post");
 const app = express();
 
 // console.log(app)
@@ -16,11 +17,27 @@ dbConnect();
 
 // console.log(process.env)
 
+//routes
+//---
+//Home route
+app.get("/", async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.json({
+      status: "success",
+      data: posts,
+    });
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 // Middleware
 app.use(express.json());
 //cors
 app.use(cors());
 //usage of middleware
+
 //Users route
 app.use("/api/users", userRoutes);
 //Post route
