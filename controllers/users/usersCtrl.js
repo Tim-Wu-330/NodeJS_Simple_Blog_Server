@@ -385,7 +385,7 @@ const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
 
   const foundUser = await User.findByIdAndUpdate(
     _id,
-    {
+    { 
       profilePhoto: imgUploaded.url,
     },
     { new: true },

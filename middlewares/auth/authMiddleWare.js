@@ -11,13 +11,11 @@ const authMiddleware = expressAsyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
       if (token) {
         const decoded = jwt.verify(token, process.env.JWT_KEY);
-        //find the user by id
-        // console.log(decoded);
+        //find the user by id using the same encoded string to decode
         const user = await User.findById(decoded?.id).select("-password");
-        //attach the user to the request object
-        // console.log(user);
+        //attach the user to the request object and delete the password from the response, we don't want pass password to the user
         req.user = user;
-        next();
+        next(); //go to the next middleware
       }
     } catch (error) {
       throw new Error("Not authorized token expired, login again");

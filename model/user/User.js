@@ -117,7 +117,11 @@ userSchema.virtual("accountType").get(function () {
   return totalFollowers >= 1 ? "Pro Account" : "Starter Account";
 });
 
-//Hash password
+//Hash password middleware, it is a middleware so we need to add next() arg or it will be stucked.
+//UserSchema.pre() is a middleware in mongoose , it will execute before the user is saved to the DB.
+//it will stop if we don't call the inserted func next(). 
+//We can't use the array func here because this keyword cannot link to the objc who has been created. 
+// this here in the normal func means the instance of the user objc who has been created.
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
