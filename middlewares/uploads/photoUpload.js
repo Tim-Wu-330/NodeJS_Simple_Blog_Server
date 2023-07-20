@@ -22,7 +22,7 @@ const multerFilter = (req, file, cb) => {
 const photoUpload = multer({
   storage: multerStorage,
   fileFilter: multerFilter,
-  limits: { fileSize: 1000000 },
+  limits: { fileSize: 6000000 },
 });
 
 //Image Resizing
